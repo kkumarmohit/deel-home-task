@@ -17,6 +17,8 @@ stages:
         addToPath: true
 
     - script: |
+        cd $(Agent.BuildDirectory)/s
+        ls
         python -m venv venv
         source ./venv/bin/activate
         pip install flask
