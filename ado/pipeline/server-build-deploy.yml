@@ -41,7 +41,7 @@ stages:
     - script: |
         cd $(Agent.BuildDirectory)/s
         echo "Building Docker image..."
-        docker build -t $(acrName).azurecr.io/$(imageName):$(imageTag) -f app
+        docker build -t $(acrName).azurecr.io/$(imageName):$(imageTag) -f app/Dockerfile .
         echo "$(DOCKER_PASSWORD)" | docker login $(acrName).azurecr.io -u $(DOCKER_USERNAME) --password-stdin
         docker push $(acrName).azurecr.io/$(imageName):$(imageTag)
       displayName: Build and Push Docker Image
