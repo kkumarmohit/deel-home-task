@@ -1,11 +1,6 @@
 trigger:
 - main
 
-variables:
-  imageName: 'flask-app'
-  imageTag: 'latest'
-  acrName: 'flaskacrdeel'
-
 stages:
 - stage: Validate
   displayName: Validate Application
