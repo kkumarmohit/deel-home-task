@@ -22,7 +22,7 @@ stages:
         python -m venv venv
         source ./venv/bin/activate
         pip install flask
-        python -m unittest discover -s tests
+        python -m unittest tests.test-app
       displayName: Run Unit Tests
 
 - stage: BuildAndPush
@@ -34,10 +34,13 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - checkout: self
     - task: DockerInstaller@0
       displayName: Install Docker
 
     - script: |
+        cd $(Agent.BuildDirectory)/s
+        echo "Building Docker image..."
         docker build -t $(acrName).azurecr.io/$(imageName):$(imageTag) -f app
         echo "$(DOCKER_PASSWORD)" | docker login $(acrName).azurecr.io -u $(DOCKER_USERNAME) --password-stdin
         docker push $(acrName).azurecr.io/$(imageName):$(imageTag)
