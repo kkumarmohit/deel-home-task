@@ -61,6 +61,6 @@ stages:
     - script: |
         az deployment group create \
           --resource-group $(RESOURCE_GROUP) \
-          --template-file ado/main.bicep \
+          --template-file ado/templates/main.bicep \
           --parameters acrName=$(acrName) imageTag=$(imageTag)
       displayName: Deploy ACI using Bicep
