@@ -40,7 +40,7 @@ stages:
 
     - script: |
         export imageTag=$(Build.BuildId)
-        echo "##vso[task.setvariable variable=imageTag; isOutput=true]$imageTag"
+        echo "##vso[task.setvariable variable=imageTag;isOutput=true]$imageTag"
         echo "Building Docker image..."
         docker build -t $(acrName).azurecr.io/$(imageName):$imageTag -f app/Dockerfile .
         echo "$(DOCKER_PASSWORD)" | docker login $(acrName).azurecr.io -u $(DOCKER_USERNAME) --password-stdin
@@ -58,9 +58,11 @@ stages:
     displayName: Deploy to ACI
     pool:
       vmImage: 'ubuntu-latest'
+    variables:
+      imageTag: $[ dependencies.BuildAndPush.outputs['Build.imageTag'] ]
     steps:
     - script: |
-        echo "Image Tag: $(dependencies.BuildAndPush.outputs['Build.imageTag'])"
+        echo "Image Tag: $(imageTag)"
       displayName: Display image tag
     - script: |
        az login --service-principal \
@@ -70,5 +72,5 @@ stages:
         az deployment group create \
           --resource-group $(RESOURCE_GROUP) \
           --template-file ado/templates/main.bicep \
-          --parameters acrName=$(acrName) imageTag=$(dependencies.BuildAndPush.outputs['Build.imageTag'])
+          --parameters acrName=$(acrName) imageTag=$(imageTag)
       displayName: Deploy ACI using Bicep
