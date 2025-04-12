@@ -14,7 +14,6 @@ RUN pip install --no-cache-dir flask
 EXPOSE 5000
 
 # Set environment variables for Flask
-ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_RUN_PORT=5000
 
