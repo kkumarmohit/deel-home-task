@@ -4,6 +4,9 @@ param appGatewayName string
 @description('Public IP name for the Application Gateway')
 param publicIpName string
 
+@description('DNS name label for the Application Gateway public IP')
+param dnsNameLabel string = 'flaskappgateway'
+
 @description('Location for the resources')
 param location string = resourceGroup().location
 
@@ -24,6 +27,9 @@ resource publicIp 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
   }
   properties: {
     publicIPAllocationMethod: 'Static'
+    dnsSettings: {
+      domainNameLabel: dnsNameLabel
+    }
   }
 }
 
@@ -147,3 +153,4 @@ resource appGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
 }
 
 output publicIp string = publicIp.properties.ipAddress
+output fqdn string = publicIp.properties.dnsSettings.fqdn

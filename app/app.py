@@ -9,8 +9,8 @@ def reverse_ip():
         # Get the client's IP address from the X-Forwarded-For header
         x_forwarded_for = request.headers.get('X-Forwarded-For')
         if x_forwarded_for:
-            # Extract the first IP in the X-Forwarded-For list
-            client_ip = x_forwarded_for.split(',')[0].strip()
+            # Extract the first IP in the X-Forwarded-For list and remove the port (if present)
+            client_ip = x_forwarded_for.split(',')[0].strip().split(':')[0]
         else:
             # Fallback to remote_addr if X-Forwarded-For is not present
             client_ip = request.remote_addr

@@ -66,4 +66,4 @@ stages:
           --resource-group $(RESOURCE_GROUP) \
           --template-file ado/templates/main.bicep \
           --parameters acrName=$(acrName) imageTag=$(Build.BuildId)
-      displayName: Deploy ACI using Bicep
+      displayName: Deploy resources
