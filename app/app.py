@@ -6,8 +6,14 @@ app = Flask(__name__)
 @app.route('/reverse-ip', methods=['GET'])
 def reverse_ip():
     try:
-        # Get the client's IP address from the request headers
-        client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+        # Get the client's IP address from the X-Forwarded-For header
+        x_forwarded_for = request.headers.get('X-Forwarded-For')
+        if x_forwarded_for:
+            # Extract the first IP in the X-Forwarded-For list
+            client_ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            # Fallback to remote_addr if X-Forwarded-For is not present
+            client_ip = request.remote_addr
 
         if not client_ip:
             return jsonify({"error": "Unable to determine client IP address"}), 400
