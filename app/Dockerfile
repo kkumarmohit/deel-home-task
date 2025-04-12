@@ -8,7 +8,7 @@ WORKDIR /app
 COPY app/app.py /app
 
 # Install dependencies
-RUN pip install --no-cache-dir flask
+RUN pip install --no-cache-dir flask requests
 
 # Expose the port the app runs on
 EXPOSE 5000

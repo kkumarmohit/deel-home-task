@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from app.app import app
 
 class TestApp(unittest.TestCase):
@@ -6,14 +7,22 @@ class TestApp(unittest.TestCase):
         self.app = app.test_client()
         self.app.testing = True
 
-    def test_reverse_ip(self):
-        # Simulate a request with a specific IP address
-        test_ip = "1.2.19.4"
+    @patch('requests.get')
+    def test_reverse_ip(self, mock_get):
+        # Mock the response from the external API
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"ip": "1.2.19.4"}
+
+        # Expected reversed IP
         expected_reversed_ip = "4.19.2.1"
-        response = self.app.get('/reverse-ip', environ_base={'REMOTE_ADDR': test_ip})
+
+        # Call the endpoint
+        response = self.app.get('/reverse-ip')
+
+        # Assert the response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, {
-            "original_ip": test_ip,
+            "original_ip": "1.2.19.4",
             "reversed_ip": expected_reversed_ip
         })
 
