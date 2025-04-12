@@ -1,19 +1,26 @@
 import os
+import requests
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 @app.route('/reverse-ip', methods=['GET'])
 def reverse_ip():
-    # Get the origin public IP from the request
-    origin_ip = request.remote_addr
-    if not origin_ip:
-        return jsonify({"error": "Unable to determine IP address"}), 400
+    try:
+        # Fetch the public IP using an external service
+        response = requests.get('https://api.ipify.org?format=json')
+        response.raise_for_status()
+        public_ip = response.json().get('ip')
 
-    # Reverse the IP address
-    segments = origin_ip.split('.')
-    reversed_ip = '.'.join(reversed(segments))
-    return jsonify({"original_ip": origin_ip, "reversed_ip": reversed_ip})
+        if not public_ip:
+            return jsonify({"error": "Unable to determine public IP address"}), 400
+
+        # Reverse the public IP address
+        segments = public_ip.split('.')
+        reversed_ip = '.'.join(reversed(segments))
+        return jsonify({"original_ip": public_ip, "reversed_ip": reversed_ip})
+    except requests.RequestException as e:
+        return jsonify({"error": "Failed to fetch public IP", "details": str(e)}), 500
 
 @app.route('/health', methods=['GET'])
 def health_check():
