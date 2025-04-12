@@ -49,8 +49,6 @@ stages:
       env:
         DOCKER_USERNAME: $(DOCKER_USERNAME)
         DOCKER_PASSWORD: $(DOCKER_PASSWORD)
-    outputs:
-      imageTag: Build.imageTag
 
 - stage: Deploy
   displayName: Deploy to Azure Container Instance
