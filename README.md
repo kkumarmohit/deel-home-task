@@ -110,7 +110,7 @@ The Azure DevOps pipeline (`ado/pipeline/server-build-deploy.yml`) automates the
     ```json
     {
         "original_ip": "127.0.0.1",
-        "reversed_ip": "1.0.0.721"
+        "reversed_ip": "1.0.0.127"
     }
     ```
 
@@ -122,7 +122,7 @@ The Azure DevOps pipeline (`ado/pipeline/server-build-deploy.yml`) automates the
 - **Response**:
     ```json
     {
-        "status": "healthy"
+        "status": "ok"
     }
     ```
 
