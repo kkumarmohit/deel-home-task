@@ -11,7 +11,8 @@ def reverse_ip():
         return jsonify({"error": "Unable to determine IP address"}), 400
 
     # Reverse the IP address
-    reversed_ip = origin_ip[::-1]
+    segments = origin_ip.split('.')
+    reversed_ip = '.'.join(reversed(segments))
     return jsonify({"original_ip": origin_ip, "reversed_ip": reversed_ip})
 
 @app.route('/health', methods=['GET'])
