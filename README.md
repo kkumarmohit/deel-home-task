@@ -98,7 +98,7 @@ Contributions are welcome! Please fork the repository and submit a pull request.
 
 ## Contact
 
-For any questions or issues, please contact [kkumarmohit@gmail.com].
+For any questions or issues, please contact [kkumarmohit@gmail.com](kkumarmohit@gmail.com).
 
 ## Features
 
@@ -106,10 +106,6 @@ For any questions or issues, please contact [kkumarmohit@gmail.com].
 - Health Check Endpoint: Provides a simple health status of the application.
 - Dockerized: Easily build and run the application in a containerized environment.
 - Azure Deployment: Automates deployment to Azure using Bicep templates and Azure DevOps pipelines.
-
-## Project Structure
-
-. ├── ado/ │ ├── pipeline/ │ │ └── server-build-deploy.yml # Azure DevOps pipeline for CI/CD │ └── templates/ │ ├── aci.bicep # Bicep template for Azure Container Instance │ ├── acr.bicep # Bicep template for Azure Container Registry │ └── main.bicep # Main Bicep template for deployment ├── app/ │ ├── app.py # Flask application code │ ├── Dockerfile # Dockerfile for containerizing the application │ └── pycache/ # Compiled Python files (ignored in version control) ├── tests/ │ ├── test-app.py # Unit tests for the Flask application │ └── pycache/ # Compiled Python test files (ignored in version control) └── README.md # Project documentation
 
 ## Endpoints
 
