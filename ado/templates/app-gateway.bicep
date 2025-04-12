@@ -86,6 +86,7 @@ resource appGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
           timeout: 30
           unhealthyThreshold: 3
           pickHostNameFromBackendHttpSettings: false
+          host: backendFqdn
           minServers: 0
           match: {
             statusCodes: [
