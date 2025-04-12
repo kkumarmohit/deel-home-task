@@ -39,7 +39,7 @@ stages:
       displayName: Install Docker
 
     - script: |
-        cd $(Agent.BuildDirectory)/s
+        ls
         echo "Building Docker image..."
         docker build -t $(acrName).azurecr.io/$(imageName):$(imageTag) -f app/Dockerfile .
         echo "$(DOCKER_PASSWORD)" | docker login $(acrName).azurecr.io -u $(DOCKER_USERNAME) --password-stdin
