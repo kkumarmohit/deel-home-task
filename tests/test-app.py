@@ -7,22 +7,18 @@ class TestApp(unittest.TestCase):
         self.app = app.test_client()
         self.app.testing = True
 
-    @patch('requests.get')
-    def test_reverse_ip(self, mock_get):
-        # Mock the response from the external API
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = {"ip": "1.2.19.4"}
+    def test_reverse_ip_with_x_forwarded_for(self):
+        # Simulate a request with the X-Forwarded-For header
+        headers = {'X-Forwarded-For': '203.0.113.42'}
+        response = self.app.get('/reverse-ip', headers=headers)
 
         # Expected reversed IP
-        expected_reversed_ip = "4.19.2.1"
-
-        # Call the endpoint
-        response = self.app.get('/reverse-ip')
+        expected_reversed_ip = "42.113.0.203"
 
         # Assert the response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, {
-            "original_ip": "1.2.19.4",
+            "original_ip": "203.0.113.42",
             "reversed_ip": expected_reversed_ip
         })
 
