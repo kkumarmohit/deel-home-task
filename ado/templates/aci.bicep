@@ -52,6 +52,7 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-10-01'
     osType: 'Linux'
     ipAddress: {
       type: 'Public'
+      dnsNameLabel: '${containerName}-${uniqueString(resourceGroup().id)}'
       ports: [
         {
           protocol: 'TCP'
