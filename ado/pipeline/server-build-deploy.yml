@@ -60,6 +60,9 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - script: |
+        echo "Image Tag: $(dependencies.BuildAndPush.outputs['Build.imageTag'])"
+      displayName: Display image tag
+    - script: |
        az login --service-principal \
           --username $(AZURE_CLIENT_ID) \
           --password $(AZURE_CLIENT_SECRET) \
