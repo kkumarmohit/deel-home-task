@@ -92,14 +92,6 @@ The Azure DevOps pipeline (`ado/pipeline/server-build-deploy.yml`) automates the
 2. **Build and Push**: Builds the Docker image and pushes it to Azure Container Registry.
 3. **Deploy**: Deploys the application to Azure Container Instance using Bicep templates.
 
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request.
-
-## Contact
-
-For any questions or issues, please contact [kkumarmohit@gmail.com](kkumarmohit@gmail.com).
-
 ## Features
 
 - Reverse IP Endpoint: Returns the client's IP address and its reversed version.
@@ -133,3 +125,11 @@ For any questions or issues, please contact [kkumarmohit@gmail.com](kkumarmohit@
         "status": "healthy"
     }
     ```
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request.
+
+## Contact
+
+For any questions or issues, please contact [kkumarmohit@gmail.com](kkumarmohit@gmail.com).
