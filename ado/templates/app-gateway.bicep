@@ -76,6 +76,25 @@ resource appGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
         }
       }
     ]
+    probes: [
+      {
+        name: 'appGatewayHealthProbe'
+        properties: {
+          protocol: 'Http'
+          path: '/health'
+          interval: 30
+          timeout: 30
+          unhealthyThreshold: 3
+          pickHostNameFromBackendHttpSettings: false
+          minServers: 0
+          match: {
+            statusCodes: [
+              '200-399'
+            ]
+          }
+        }
+      }
+    ]
     backendHttpSettingsCollection: [
       {
         name: 'appGatewayHttpSettings'
@@ -85,6 +104,9 @@ resource appGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
           cookieBasedAffinity: 'Disabled'
           pickHostNameFromBackendAddress: false
           requestTimeout: 20
+          probe: {
+            id: resourceId('Microsoft.Network/applicationGateways/probes', appGatewayName, 'appGatewayHealthProbe')
+          }
         }
       }
     ]
