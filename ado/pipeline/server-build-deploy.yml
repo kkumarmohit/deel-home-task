@@ -21,7 +21,7 @@ stages:
         ls
         python -m venv venv
         source ./venv/bin/activate
-        pip install flask
+        pip install flask requests
         python -m unittest tests.test-app
       displayName: Run Unit Tests
 
